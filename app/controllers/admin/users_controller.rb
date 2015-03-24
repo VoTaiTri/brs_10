@@ -1,5 +1,6 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
+  respond_to :html, :js
 
   def index
     @users = User.all.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
@@ -13,8 +14,6 @@ class Admin::UsersController < AdminController
   def destroy
     @user = User.find params[:id]
     @user.destroy
-    flash[:success] = "User deleted!"
-    redirect_to admin_users_url
   end
 
   private
@@ -27,6 +26,6 @@ class Admin::UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit :name
+    params.require(:user).permit :name, :avatar
   end
 end

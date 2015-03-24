@@ -7,24 +7,26 @@
     </section>
   </aside>
   <div class="col-md-8">
-    <%= form_tag admin_users_path, method: 'get', id: "users_search" do %>
-      <%= hidden_field_tag :direction, params[:direction] %>
-      <%= hidden_field_tag :sort, params[:sort] %>
-      <div class="col-md-12">
-        <div class="col-md-3">
-          Search
+    <div div class="col-md-12">
+      <%= form_tag admin_users_path, method: 'get', id: "users_search" do %>
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+        <div class="col-md-12 well">
+          <div class="col-md-3">
+            <label>Search</label>
+          </div>
+          <div class="col-md-6">
+            <%= text_field_tag :search, params[:search] %>
+          </div>
+          <div class="col-md-2">
+            <%= submit_tag "Search", class: "btn btn-primary" %>
+          </div>
+          <div class="col-md-1"></div>
+        </div>  
+        <div class="col-md-12">
+          <div id="users_div"><%= render 'list_users' %></div>
         </div>
-        <div class="col-md-6">
-          <%= text_field_tag :search, params[:search] %>
-        </div>
-        <div class="col-md-2">
-          <%= submit_tag "Search", :name => nil %>
-        </div>
-        <div class="col-md-1"></div>
-      </div>  
-      <div class="col-md-12">
-        <div id="users_div"><%= render 'list_users' %></div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

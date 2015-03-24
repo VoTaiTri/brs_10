@@ -9,15 +9,11 @@
   <div class="col-md-8">
     <div class="col-md-12">
       <div class="col-md-4">
-        <%= image_tag "#{@user.avatar}", id: "book-image", alt: "Book" %>
+        <%= image_tag "#{@user.avatar}", id: "book-image", alt: "Avatar" %>
       </div>
       <div class="col-md-8">
-        <div class="col-md-12">User : <%= @user.name %></div>
+        <div class="col-md-12">Username : <%= @user.name %></div>
       </div>
-    </div>
-    <div class="col-md-12">
-      <%= link_to("delete", admin_user_path(@user), method: :delete, 
-                                                  data: {confirm: "you sure?"}) %>
     </div>
     <div class="col-md-12">
       <h1>Activities</h1>

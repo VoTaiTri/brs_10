@@ -4,15 +4,24 @@
 <h1>Manager Users</h1>
 
 <% if @users.any? %>
-  <table>
-    <tr>
-      <th><div class="col-md-12"><%= sortable "name" %></div></th>
-      <th><div class="col-md-12"> Action </div></th>
-    </tr>
-    <%= render @users %>
+  <%= will_paginate @users %>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th><div class="col-md-12"> Avatar </div></th>
+        <th><div class="col-md-12"><%= sortable "name" %></div></th>
+        <th><div class="col-md-12"> Action </div></th>
+      </tr>
+    </thead>  
+    <tbody class="user-index">
+      <%= render @users %>
+    </tbody>
   </table>
 
   <%= will_paginate @users %>
 <% else %>
   <h2 style="center">Empty</h2>
 <% end %>
+<div class="col-md-12">
+  <%= link_to "add new user", new_admin_user_path, class: "btn btn-primary" %>
+</div>

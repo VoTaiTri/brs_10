@@ -1,15 +1,18 @@
 <% unless current_user == user %>
-  <tr>
+  <tr id="user_<%= user.id %>">
     <td>
-      <div class="col-md-12">
-        <%= link_to(user.name, admin_user_path(user)) %>
-      </div>
+      <%= image_tag "#{user.avatar}", size: "32x32", alt: "Avatar", class: "img-rounded" %>
     </td>
     <td>
       <div class="col-md-12">
-        <%= link_to("delete", admin_user_path(user), method: :delete, 
-                                     data: {confirm: "you sure?"}) %>
+        <%= link_to user.name, admin_user_path(user) %>
       </div>
+    </td>
+    <td>
+    <div class="col-md-12">
+      <%= link_to "delete", admin_user_path(user), method: :delete,
+      class: "btn btn-danger", remote: true, data: {confirm: "you sure?"} %>
+    </div>
     </td>
   </tr>
 <% end %>
