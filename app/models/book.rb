@@ -15,6 +15,8 @@ class Book < ActiveRecord::Base
 
   mount_uploader :image, PictureUploader
 
+  after_destroy :destroy_activities
+
   def self.search(search, filter, category)
     if search
       if category.blank?
@@ -34,5 +36,11 @@ class Book < ActiveRecord::Base
 
   def average_rating
     self.reviews.average :rating
+  end
+
+  private
+  def destroy_activities
+    Activity.destroy_all target_id: self.id, action_type: ["read", "reading", 
+                                          "unread", "favorite", "unfavorite"]
   end
 end

@@ -9,9 +9,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     @comment.review = @review
     if @comment.save
-      Activity.create(user: current_user, 
-                      target_id: @comment.id, 
-                      action_type: "comment")
+      current_user.create_activity @comment.id, "comment"
     end
   end
 

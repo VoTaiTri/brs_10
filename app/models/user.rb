@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
 
   scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}
 
+  after_destroy :destroy_activities
+
   def is_admin?
     role == 'admin'
   end
@@ -43,12 +45,12 @@ class User < ActiveRecord::Base
   end
   
   def follow other_user
-    Activity.create user: self, target_id: other_user.id, action_type: "follow"
+    self.create_activity other_user.id, "follow"
     active_relationships.create followed_id: other_user.id
   end
 
   def unfollow other_user
-    Activity.create user: self, target_id: other_user.id, action_type: "unfollow"
+    self.create_activity other_user.id, "unfollow"
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
@@ -62,5 +64,14 @@ class User < ActiveRecord::Base
 
   def following_ids
     self.following.pluck :id
+  end
+
+  def create_activity target_id, action_type
+    Activity.create user: self, target_id: target_id, action_type: action_type
+  end
+
+  private
+  def destroy_activities
+    Activity.destroy_all target_id: self.id, action_type: ["follow", "unfollow"]
   end
 end
