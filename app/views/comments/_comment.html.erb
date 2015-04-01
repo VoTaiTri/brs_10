@@ -2,12 +2,12 @@
   <span class="content"><%= comment.content %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words comment.created_at %> ago.
-    <%= link_to_if(current_user.is_user?(comment.user), 
+    <%= link_to_if(can?(:update, comment), 
           "edit",
           edit_review_comment_path(comment.review, comment), 
           remote: true){} %>
     ||
-    <%= link_to_if(current_user.is_user?(comment.user),
+    <%= link_to_if(can?(:destroy, comment),
           "delete",
           [comment.review, comment],  remote: true, 
           method: :delete, 
