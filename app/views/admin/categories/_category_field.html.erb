@@ -1,0 +1,13 @@
+<%= form_for [:admin, @category], html: {multipart: true} do |f| %>
+  <div class="col-md-12 well">
+    <%= f.label :content %>
+    <%= f.text_area :content, placeholder: "Compose new category...", class: 'form-control' %>
+  </div>
+  <div class="col-md-12 well">
+    <%= f.label :image %>
+    <%= f.file_field :image, accept: 'image/jpeg,image/gif,image/png' %>
+  </div>
+  <div class="col-md-12 well">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

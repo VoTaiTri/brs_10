@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, length: {maximum: 100}        
   validates :role, presence: true, length: {maximum: 50}
+  
   mount_uploader :avatar, PictureUploader
 
   scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}

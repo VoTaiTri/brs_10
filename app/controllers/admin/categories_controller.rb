@@ -4,14 +4,14 @@ class Admin::CategoriesController < AdminController
   respond_to :html, :js
 
   def index
-    @categories = Category.all.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
+    @categories = Category.search_by params[:search]
+    @categories = @categories.order [sort_column, sort_direction].join(' ')
     @categories = @categories.paginate page: params[:page], per_page: 5
   end
 
-  def new 
+  def new
     @title = "New Category"
     @category = Category.new
-    render 'edit'
   end
 
   def create
@@ -44,10 +44,6 @@ class Admin::CategoriesController < AdminController
   private
   def sort_column
     Category.column_names.include?(params[:sort]) ? params[:sort] : "content"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def set_category
