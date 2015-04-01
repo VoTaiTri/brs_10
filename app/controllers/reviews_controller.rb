@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :correct_user!, only: [:edit, :update, :destroy]
+  respond_to :js
 
   def create
     @book = Book.find params[:book_id]
@@ -8,22 +9,13 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     @review.book = @book
     if @review.save
-      Activity.create(user: current_user, 
-                      target_id: @review.id, 
-                      action_type: "review")
-      respond_to do |format|
-        format.js
-      end
+      current_user.create_activity @review.id, "review"
     end
   end
 
   def destroy
     @review = Review.find params[:id]
-    Activity.destroy_all target_id: @review.id, action_type: "review"
     @review.destroy
-    respond_to do |format|
-      format.js
-    end
   end
 
   def show
@@ -47,12 +39,12 @@ class ReviewsController < ApplicationController
   end
 
   private
-    def review_params
-      params.require(:review).permit :content, :rating
-    end
+  def review_params
+    params.require(:review).permit :content, :rating
+  end
 
-    def correct_user!
-      @review = current_user.reviews.find_by id: params[:id]
-      redirect_to root_url if @review.nil?
-    end
+  def correct_user!
+    @review = current_user.reviews.find_by id: params[:id]
+    redirect_to root_url if @review.nil?
+  end
 end

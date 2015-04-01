@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20150326061028) do
   create_table "activities", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "action_type"
+    t.string   "message"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  add_index "activities", ["user_id", "created_at"], name: "index_activities_on_user_id_and_created_at"
   add_index "activities", ["user_id"], name: "index_activities_on_user_id"
 
   create_table "book_states", force: :cascade do |t|
@@ -73,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150326061028) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "favorites", ["book_id", "user_id"], name: "index_favorites_on_book_id_and_user_id", unique: true
   add_index "favorites", ["book_id"], name: "index_favorites_on_book_id"
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 

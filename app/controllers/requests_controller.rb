@@ -12,9 +12,7 @@ class RequestsController < ApplicationController
     @request.state = "waiting"
     if @request.save
       flash[:success] = "Request sent!"
-      Activity.create(user: current_user,
-                      target_id: @request.id,
-                      action_type: "request")
+      current_user.create_activity @request.id, "request"
     else
       flash[:error] = "Request failed!"
     end
@@ -22,8 +20,6 @@ class RequestsController < ApplicationController
 
   def destroy
     @request = Request.find params[:id]
-    Activity.destroy_all(target_id: @request.id, 
-            action_type: ["request", "request_accept", "request_decline"])
     @request.destroy
   end
 

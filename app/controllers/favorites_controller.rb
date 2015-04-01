@@ -1,5 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!, except: :index
+  respond_to :js
 
   def index
     @user = User.find params[:user_id]
@@ -10,20 +11,13 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new favorite_params
     @favorite.user = current_user
     if @favorite.save
-      Activity.create(user: current_user,
-                      target_id: @favorite.book.id,
-                      action_type: "favorite")
-      respond_to do |format|
-        format.js
-      end
+      current_user.create_activity @favorite.book.id, "favorite"
     end
   end
 
   def destroy
     @favorite = Favorite.find params[:id]
-    Activity.create(user: current_user,
-                    target_id: @favorite.book.id,
-                    action_type: "unfavorite")
+    current_user.create_activity @favorite.book.id, "unfavorite"
     @favorite.destroy
     respond_to do |format|
       format.js

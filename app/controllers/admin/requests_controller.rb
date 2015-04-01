@@ -8,9 +8,6 @@ class Admin::RequestsController < AdminController
   def update
     @request = Request.find params[:id]
     @request.update_attributes request_params
-    Activity.create(user: @request.user,
-                    target_id: @request.id,
-                    action_type: "request_#{@request.state}")
   end
 
   private

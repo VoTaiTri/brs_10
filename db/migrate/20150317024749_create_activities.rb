@@ -3,6 +3,7 @@ class CreateActivities < ActiveRecord::Migration
     create_table :activities do |t|
       t.integer :target_id
       t.string :action_type
+      t.string :message
       t.references :user, index: true
 
       t.timestamps null: false
