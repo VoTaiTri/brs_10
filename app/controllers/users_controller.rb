@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   respond_to :html, :js
 
   def index
-    @users = User.all.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
+    @users = User.search_by(params[:search]).order [sort_column, sort_direction].join(' ')
     @users = @users.paginate page: params[:page], per_page: 10
   end
 
@@ -28,10 +28,6 @@ class UsersController < ApplicationController
   private
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def user_params

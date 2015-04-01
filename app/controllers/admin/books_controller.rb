@@ -4,7 +4,7 @@ class Admin::BooksController < AdminController
 
   def index
     @books = Book.search params[:search], params[:filter], params[:category_id]
-    @books = @books.order sort_column + ' ' + sort_direction
+    @books = @books.order [sort_column, sort_direction].join(' ')
     @books = @books.paginate page: params[:page], per_page: 20
   end
 
@@ -50,10 +50,6 @@ class Admin::BooksController < AdminController
     Book.column_names.include?(params[:sort]) ? params[:sort] : "title"
   end
   
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
   def book_params
     params.require(:book).permit :title, :image, :author, :number_of_pages, :publish_date, 
                           :category_id, photos_attributes: [:id, :image, :_destroy]
