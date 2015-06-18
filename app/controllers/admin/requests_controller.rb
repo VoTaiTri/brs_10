@@ -2,7 +2,7 @@ class Admin::RequestsController < AdminController
   respond_to :html, :js
 
   def index
-    @requests = Request.all.paginate page: params[:page]
+    @requests = Request.accepted.paginate page: params[:page]
   end
 
   def update

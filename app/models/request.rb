@@ -1,4 +1,5 @@
 class Request < ActiveRecord::Base
+  enum state: [:waiting, :accept, :decline]
   belongs_to :user
 
   validates :user, presence: true
@@ -7,6 +8,8 @@ class Request < ActiveRecord::Base
   validates :state, presence: true 
 
   after_destroy :destroy_activities
+
+  scope :accepted, ->{where state: Request.states[:accept]}
 
   private
   def destroy_activities

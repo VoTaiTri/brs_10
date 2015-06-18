@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20150326061028) do
     t.string   "book_name"
     t.string   "author"
     t.string   "book_url"
-    t.string   "state"
+    t.integer  "state"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

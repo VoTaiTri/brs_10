@@ -4,7 +4,7 @@ class CreateRequests < ActiveRecord::Migration
       t.string :book_name
       t.string :author
       t.string :book_url
-      t.string :state
+      t.integer :state
       t.references :user, index: true
 
       t.timestamps null: false
