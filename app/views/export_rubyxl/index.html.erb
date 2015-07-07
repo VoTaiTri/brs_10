@@ -1,0 +1,42 @@
+<% if @products.any? %>
+  <h2>Listing products <%= @products.count %></h2>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Product name</th>
+      <th>Price</th>
+    </tr>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h2>Empty product!!!</h2>
+<% end %>
+
+<% if @companies.any? %>
+  <h2>Listing companies <%= @companies.count %></h2>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Company name</th>
+      <th>Address</th>
+    </tr>
+    <% @companies.each do |company| %>
+      <tr>
+        <td><%= company.id %></td>
+        <td><%= company.name %></td>
+        <td><%= company.address %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h2>Empty company!!!</h2>
+<% end %>
+
+
+<%= link_to "Export", export_file_path(format: :xlsx ) %>

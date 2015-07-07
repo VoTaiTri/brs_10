@@ -37,4 +37,6 @@ Rails.application.routes.draw do
     resources :books, except: [:show]
   end
 
+  get "rubyxl" => "export_rubyxl#index"
+  get "export_file" => "export_rubyxl#new"
 end
