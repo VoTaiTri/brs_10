@@ -19,22 +19,22 @@ gem 'mini_magick',             '3.8.0'
 gem 'fog',                     '1.23.0'
 gem 'devise'
 
-gem 'cancancan', '~> 1.9'
+# gem 'cancancan', '~> 1.9'
 
-gem 'fullcalendar-rails'
+# gem 'fullcalendar-rails'
 
-gem 'rails_config'
+# gem 'rails_config'
 
-gem 'ransack'
+# gem 'ransack'
 
-gem 'mechanize', '~> 2.7.3'
+# gem 'mechanize', '~> 2.7.3'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
-  
+
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'rspec-collection_matchers'
@@ -51,7 +51,7 @@ end
 #   gem 'guard-minitest',     '2.3.1'
 # end
 
-group :production do
-  gem 'pg',             '0.17.1'
-  gem 'rails_12factor', '0.0.2'
-end
+# group :production do
+#   gem 'pg',             '0.17.1'
+#   gem 'rails_12factor', '0.0.2'
+# end
