@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BooksController, type: :controller do
-  let!(:user) {FactoryGirl.create :user}
+  let(:user) {FactoryGirl.create :user}
 
   describe "GET #index" do
     let(:books) {FactoryGirl.create_list :many_books, 2}
@@ -26,7 +26,7 @@ RSpec.describe BooksController, type: :controller do
         sign_out user
         get :show, id: book.id
       end
-      
+
       it {expect(response).to redirect_to new_user_session_path}
       it {expect(flash[:alert]).to eq "You need to sign in or sign up before continuing."}
     end

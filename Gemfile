@@ -39,6 +39,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
+  gem 'rspec-activemodel-mocks'
 
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
